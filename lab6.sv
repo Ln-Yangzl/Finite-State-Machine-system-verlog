@@ -56,7 +56,6 @@ module digit_clk(
 
     logic clk_32hz;
     mod_cnt #(.N(2000000), .W(22)) clk_32(.clk, .resetn, .en(1'b1), .carry(clk_32hz));
-    // mod_cnt #(.N(5)) clk_32(.clk, .resetn, .en(1'b1), .carry(clk_32hz));     //this is for sim
 
     mod_cnt #(.N(60),.W(6)) s_count(.clk, .resetn, .en(clk_32hz), .counter(s_nxt), .carry(min_en));
     mod_cnt #(.N(60),.W(6)) m_count(.clk, .resetn, .en(min_en), .counter(m_nxt), .carry(hor_en));
@@ -127,9 +126,6 @@ module traffic_light(
     logic one_s, three_s;
     mod_cnt #(.N(100000000), .W(27)) one_conter(.clk, .resetn(resetn & sensor), .en(1'b1), .carry(one_s));
     mod_cnt #(.N(300000000), .W(29)) three_conter(.clk, .resetn(resetn & sensor), .en(1'b1), .carry(three_s));
-    //this is for sim
-    // mod_cnt #(.N(5), .W(32)) one(.clk, .resetn(clear), .en(1'b1), .carry(one_s));
-    // mod_cnt #(.N(15), .W(32)) three(.clk, .resetn(clear), .en(1'b1), .carry(three_s));
 
     always_comb begin
             unique case (state)
